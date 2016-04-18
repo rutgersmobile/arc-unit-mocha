@@ -48,7 +48,7 @@ Path used to invoke `istanbul`.
 
 
 #### `unit.mocha.coverage.reportdir`
-Default: `./coverage`
+Default: `"./coverage"`
 
 Path to the directory where `istanbul` should output reports.
 
