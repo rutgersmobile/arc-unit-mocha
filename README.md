@@ -1,8 +1,8 @@
 arc-unit-mocha
 ==============
 
-Arcanist unit test engine for running [mocha](http://mochajs.org/) tests with
-[istanbul](https://github.com/gotwarlost/istanbul/) for coverage reports.
+Arcanist unit test engine for running [Mocha](http://mochajs.org/) tests with
+[Istanbul](https://github.com/gotwarlost/istanbul/) for coverage reports.
 
 ## Installation
 
@@ -25,40 +25,19 @@ Arcanist unit test engine for running [mocha](http://mochajs.org/) tests with
 
 3. Run `arc unit` to run tests.
 
-
 ## Configuration
+
 The following options can be set in `.arcconfig`:
 
-#### `unit.mocha.bin.mocha`
-Default: `"./node_modules/mocha/bin/mocha"`
+| Key                             | Default value                          | Description                                                   |
+| ------------------------------- | -------------------------------------- | ------------------------------------------------------------- |
+| `unit.mocha.bin.mocha`          | `"./node_modules/mocha/bin/mocha"`     | Path used to invoke `mocha`.                                  |
+| `unit.mocha.bin._mocha`         | `"./node_modules/mocha/bin/_mocha"`    | Path used to invoke `_mocha` (used by `istanbul`).            |
+| `unit.mocha.bin.istanbul`       | `"./node_modules/istanbul/lib/cli.js"` | Path used to invoke `istanbul`.                               |
+| `unit.mocha.coverage.reportdir` | `"./coverage"`                         | Path to the directory where `istanbul` should output reports. |
+| `unit.mocha.coverage.exclude`   | `null`                                 | An array of paths to exclude from coverage reports.           |
 
-Path used to invoke `mocha`.
-
-
-#### `unit.mocha.bin._mocha`
-Default: `"./node_modules/mocha/bin/_mocha"`
-
-Path used to invoke `_mocha` (used by `istanbul`).
-
-
-#### `unit.mocha.bin.istanbul`
-Default: `"./node_modules/istanbul/lib/cli.js"`
-
-Path used to invoke `istanbul`.
-
-
-#### `unit.mocha.coverage.reportdir`
-Default: `"./coverage"`
-
-Path to the directory where `istanbul` should output reports.
-
-
-#### `unit.mocha.coverage.exclude`
-Default: `null`
-
-An array of paths to exclude from coverage reports.
-
-Example:
+Example values for `unit.mocha.coverage.exclude`:
 ```json
 "unit.mocha.coverage.exclude": [
   "ignoreme.js",
