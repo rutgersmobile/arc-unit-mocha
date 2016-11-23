@@ -10,6 +10,7 @@ final class MochaEngine extends ArcanistUnitTestEngine {
     private $istanbulBin;
     private $coverReportDir;
     private $coverExcludes;
+    private $testIncludes;
 
     /**
      * Determine which executables and test paths to use.
@@ -41,6 +42,10 @@ final class MochaEngine extends ArcanistUnitTestEngine {
 
         $this->coverExcludes = $config->getConfigFromAnySource(
             'unit.mocha.coverage.exclude');
+
+        $this->testIncludes = $config->getConfigFromAnySource(
+            'unit.mocha.test.include',
+            '');
 
         // Make sure required binaries are available
         $binaries = array($this->mochaBin, $this->_mochaBin,
@@ -112,16 +117,26 @@ final class MochaEngine extends ArcanistUnitTestEngine {
             }
         }
 
+        // Create test include options list
+        $include_opts = '';
+        if ($this->testIncludes != null) {
+            foreach ($this->testIncludes as $include_glob) {
+                $include_opts .= ' -x ' . escapeshellarg($include_glob);
+            }
+        }
+        
         return new ExecFuture('%C cover %s ' .
                               '--report clover ' .
                               '--dir %s ' .
                               '--default-excludes ' .
                               '--include-all-sources ' .
-                              '%C',
+                              '%C ' .
+                              '%C ',
                               $this->istanbulBin,
                               $this->_mochaBin,
                               $this->coverReportDir,
-                              $exclude_opts);
+                              $exclude_opts,
+                              $include_opts);
     }
 
     protected function parseTestResults($xunit_tmp, $cover_xml_path) {

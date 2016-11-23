@@ -36,6 +36,7 @@ The following options can be set in `.arcconfig`:
 | `unit.mocha.bin.istanbul`       | `"./node_modules/istanbul/lib/cli.js"` | Path used to invoke `istanbul`.                               |
 | `unit.mocha.coverage.reportdir` | `"./coverage"`                         | Path to the directory where `istanbul` should output reports. |
 | `unit.mocha.coverage.exclude`   | `null`                                 | An array of paths to exclude from coverage reports.           |
+| `unit.mocha.include`            | `null`                                 | An array of paths to include for the mocha tests.             |
 
 Example values for `unit.mocha.coverage.exclude`:
 ```json
