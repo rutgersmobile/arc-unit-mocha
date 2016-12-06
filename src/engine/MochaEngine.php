@@ -103,9 +103,17 @@ final class MochaEngine extends ArcanistUnitTestEngine {
     }
 
     protected function buildTestFuture($xunit_tmp) {
-        return new ExecFuture('%C -R xunit > %s',
+        // Create test include options list
+        $include_opts = '';
+        if ($this->testIncludes != null) {
+            foreach ($this->testIncludes as $include_glob) {
+                $include_opts .= ' ' . escapeshellarg($include_glob);
+            }
+        }
+        return new ExecFuture('%C -R xunit --reporter-options output=%s %C',
                               $this->mochaBin,
-                              $xunit_tmp);
+                              $xunit_tmp,
+                              $include_opts);
     }
 
     protected function buildCoverFuture() {
@@ -121,7 +129,7 @@ final class MochaEngine extends ArcanistUnitTestEngine {
         $include_opts = '';
         if ($this->testIncludes != null) {
             foreach ($this->testIncludes as $include_glob) {
-                $include_opts .= ' -x ' . escapeshellarg($include_glob);
+                $include_opts .= ' ' . escapeshellarg($include_glob);
             }
         }
         
